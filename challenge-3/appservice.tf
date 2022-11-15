@@ -11,7 +11,7 @@ resource "azurerm_resource_group" "group" {
 
 
 locals {
-  team_id = "YOURTEAMID"
+  team_id = "47491"
 }
 
 ## An App Service Plan mainly defines the hardware that is used to host your App Service.
@@ -21,7 +21,8 @@ resource "azurerm_service_plan" "plan" {
   name                = "${azurerm_resource_group.group.name}-plan"
   location            = azurerm_resource_group.group.location
   resource_group_name = azurerm_resource_group.group.name
-  
+  os_type =  "Linux"
+  sku_name = "S1"
   # Define Linux as Host OS
 
   # Choose sizing 'S1'
@@ -43,7 +44,8 @@ resource "azurerm_linux_web_app" "app" {
   site_config {
     # Configure Docker Image kristofdm/htf:latest here
     application_stack {
-      
+      docker_image = "kristofdm/htf"
+      docker_image_tag = "latest"
     }
   }
 
